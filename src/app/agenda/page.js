@@ -1,6 +1,7 @@
 'use client';
 
 import {useState, useEffect} from 'react';
+import Link from 'next/link'
 
 export default function AgendaPage(){
 
@@ -48,8 +49,8 @@ export default function AgendaPage(){
         <ul>
             {contactos.map((contacto) =>
                 <li key={contacto.id}>
-                    {contacto.nombre} {contacto.apellidos} 
-                    <button onClick={() => eliminarContacto(contacto)}>🗑️</button>
+                    <Link href={"/agenda/" + contacto.id }>{contacto.nombre} {contacto.apellidos}</Link>   
+                     <button onClick={() => eliminarContacto(contacto)}>🗑️</button>
                 </li>
             )}
         </ul>
