@@ -28,6 +28,69 @@ export async function GET() {
   }
 }
 
+
+export async function POST(request) {
+  const patternCorreo = /.+@.+\..+/;
+  const patternTlf = /^[0-9]{9}$/;
+  let body = await request.json();
+  if(!body.nombre){
+    return new Response(
+      JSON.stringify({ error: 'Nombre requerido'}),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  if(!body.apellidos){
+    return new Response(
+      JSON.stringify({ error: 'Apellidos requeridos'}),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  if(!body.telefono){
+    return new Response(
+      JSON.stringify({ error: 'Teléfono requerido'}),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  if(!body.correo){
+    body = {...body, correo: null};
+  }
+  if(!patternCorreo.test(body.correo)){
+    return new Response(
+      JSON.stringify({ error: 'Correo inválido'}),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  if(!patternTlf.test(body.telefono)){
+    return new Response(
+      JSON.stringify({ error: 'Teléfono inválido'}),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+  if(!body.fecha_nacimiento){
+    body = {...body, fecha_nacimiento: null};
+  }
+
+  try {
+    const { data: data, error } = await supabase.from('contacto').insert([body]);
+    if (error) {
+      return new Response(
+        JSON.stringify({ error: 'Error al actualizar los datos', details: error.message }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    return new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: 'Error interno del servidor', details: err.message }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}
+
 export async function DELETE(request){
     const body = await request.json();
     
@@ -36,7 +99,7 @@ export async function DELETE(request){
 
       if (error) {
         return new Response(
-          JSON.stringify({ error: 'Error al obtener los datos', details: error.message }),
+          JSON.stringify({ error: 'Error al actualizar los datos', details: error.message }),
           { status: 500, headers: { 'Content-Type': 'application/json' } }
         );
       }

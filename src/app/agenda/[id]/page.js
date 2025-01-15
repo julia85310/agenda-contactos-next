@@ -22,8 +22,8 @@ export default function ContactPage({params}){
     return <div>
         <h1>{contacto.nombre} {contacto.apellidos}</h1>
         <p>ID: {id}</p>
-        <p>Correo: {contacto.correo}</p>
+        {!!contacto.correo && <p>Correo: {contacto.correo}</p>}
         <p>Teléfono: {contacto.telefono}</p>
-        <p>Fecha de nacimiento: {contacto.fecha_nacimiento}</p>
+        {!!contacto.fecha_nacimiento && <p>Fecha de nacimiento: {contacto.fecha_nacimiento}</p>}
     </div>
 }
