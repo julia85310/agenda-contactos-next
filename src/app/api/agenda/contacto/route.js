@@ -9,7 +9,7 @@ export async function GET(request) {
 const {searchParams} = new URL(request.url)
 const idBuscado = searchParams.get("id")
   try {
-    const { data: contacto, error } = await supabase.from('contacto').select('*').eq('id', idBuscado);
+    const { data: contacto, error } = await supabase.from('contacto').select('*').eq('id', idBuscado).single();
 
     if (error) {
       return new Response(

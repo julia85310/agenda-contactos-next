@@ -6,19 +6,24 @@ export default function ContactPage({params}){
 
     useEffect(() => {
             fetchData();
-        }, [])
+    }, [])
     
     async function fetchData() {
-        const res = await fetch('http://localhost:3000/api/agenda/contacto');
+        const url = "/api/agenda/contacto?id=" + id
+        const res = await fetch(url);
         const data = await res.json();
         setContacto(data);
     }
 
+    if (!contacto) {
+        return <h1>Task not found</h1>;
+    }
+    
     return <div>
-        <h1>Contacto de {contacto.nombre} {contacto.apellidos}</h1>
-        <p>ID: {contacto.id}</p>
+        <h1>{contacto.nombre} {contacto.apellidos}</h1>
+        <p>ID: {id}</p>
         <p>Correo: {contacto.correo}</p>
         <p>Teléfono: {contacto.telefono}</p>
-        <p>Fecha de nacimiento: {contacto.fechaNacimiento}</p>
+        <p>Fecha de nacimiento: {contacto.fecha_nacimiento}</p>
     </div>
 }
