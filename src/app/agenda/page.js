@@ -46,6 +46,7 @@ export default function AgendaPage(){
 
     return <div>
         <h1>Contactos</h1>
+        <Link href={"/agenda/form-add-contacto"}>Añade un contacto aqui</Link>
         <ul>
             {contactos.map((contacto) =>
                 <li key={contacto.id}>
