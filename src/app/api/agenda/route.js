@@ -28,11 +28,9 @@ export async function GET() {
   }
 }
 
-
-export async function POST(request) {
+function comprobaciones(body){
   const patternCorreo = /.+@.+\..+/;
   const patternTlf = /^[0-9]{9}$/;
-  let body = await request.json();
   if(!body.nombre){
     return new Response(
       JSON.stringify({ error: 'Nombre requerido'}),
@@ -53,13 +51,13 @@ export async function POST(request) {
   }
   if(!body.correo){
     body = {...body, correo: null};
-  }
-  if(!patternCorreo.test(body.correo)){
+  }else if(!patternCorreo.test(body.correo)){
     return new Response(
       JSON.stringify({ error: 'Correo inválido'}),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
+  
   if(!patternTlf.test(body.telefono)){
     return new Response(
       JSON.stringify({ error: 'Teléfono inválido'}),
@@ -69,9 +67,63 @@ export async function POST(request) {
   if(!body.fecha_nacimiento){
     body = {...body, fecha_nacimiento: null};
   }
+  return body;
+}
+
+export async function POST(request) {
+  const body = await request.json();
+  const res = comprobaciones(body);
+
+  if(res instanceof Response){
+    return res;
+  }
 
   try {
-    const { data: data, error } = await supabase.from('contacto').insert([body]);
+    const { data: data, error } = await supabase.from('contacto').insert([res]);
+    if (error) {
+      return new Response(
+        JSON.stringify({ error: 'Error al actualizar los datos', details: error.message }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    return new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: 'Error interno del servidor', details: err.message }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}
+
+export async function PUT(request) {
+  const body = await request.json();
+  const res = comprobaciones(body);
+
+  if(res instanceof Response){
+    return res;
+  }
+
+  if (!res.id) {
+    return new Response(
+      JSON.stringify({ error: 'ID requerido para actualizar' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  try {
+    const { data: data, error } = await supabase.from('contacto')
+    .update({
+      nombre: body.nombre,
+      apellidos: body.apellidos,
+      telefono: body.telefono,
+      correo: body.correo,
+      fecha_nacimiento: body.fecha_nacimiento
+    }).eq('id', body.id);
+    
     if (error) {
       return new Response(
         JSON.stringify({ error: 'Error al actualizar los datos', details: error.message }),

@@ -62,7 +62,7 @@ export default function AddContactPage(){
             <label>Nombre: <input type="text" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required></input></label><br></br>
             <label>Apellidos: <input type="text" value={formData.apellidos} onChange={(e) => setFormData({...formData, apellidos: e.target.value})} required></input></label><br></br>
             <label>Correo: <input type="text" value={formData.correo} pattern=".+@.+\..+" onChange={(e) => setFormData({...formData, correo: e.target.value})}></input></label><br></br>
-            <label>Teléfono: <input type="number" value={formData.telefono} pattern="[0-9]{9}" onChange={(e) => setFormData({...formData, telefono: e.target.value})}></input></label><br></br>
+            <label>Teléfono: <input type="number" value={formData.telefono} pattern="[0-9]{9}" onChange={(e) => setFormData({...formData, telefono: e.target.value})} required></input></label><br></br>
             <label>Fecha de naciemiento: <input type="date" value={formData.fecha_nacimiento} onChange={(e) => setFormData({...formData, fecha_nacimiento: e.target.value})}></input></label><br></br>
             <input type='submit' value='Añadir contacto'></input>
         </form>
