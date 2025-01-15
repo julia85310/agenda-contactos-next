@@ -28,6 +28,26 @@ export async function GET() {
   }
 }
 
-export async function DELETE(){
+export async function DELETE(request){
+    const body = await request.json();
     
+    try{
+      const {data: data, error} = await supabase.from('contacto').delete().eq('id', body.id);
+
+      if (error) {
+        return new Response(
+          JSON.stringify({ error: 'Error al obtener los datos', details: error.message }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      return new Response(JSON.stringify(data), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (err) {
+      return new Response(
+        JSON.stringify({ error: 'Error interno del servidor', details: err.message }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 }

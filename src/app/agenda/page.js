@@ -48,8 +48,8 @@ export default function AgendaPage(){
         <ul>
             {contactos.map((contacto) =>
                 <li key={contacto.id}>
-                    {contacto.nombre} {contacto.apellidos}
-                    <button onClick={() => eliminarContacto(contacto)}></button>
+                    {contacto.nombre} {contacto.apellidos} 
+                    <button onClick={() => eliminarContacto(contacto)}>🗑️</button>
                 </li>
             )}
         </ul>
