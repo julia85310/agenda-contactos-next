@@ -47,13 +47,15 @@ export default function AgendaPage(){
     return <div>
         <h1>Contactos</h1>
         <Link href={"/agenda/form-add-contacto"}>Añade un contacto aqui</Link>
-        <ul>
-            {contactos.map((contacto) =>
-                <li key={contacto.id}>
-                    <Link href={"/agenda/" + contacto.id }>{contacto.nombre} {contacto.apellidos}</Link>   
-                     <button onClick={() => eliminarContacto(contacto)}>🗑️</button>
-                </li>
-            )}
-        </ul>
+        <main>
+            <ul>
+                {contactos.map((contacto) =>
+                    <li key={contacto.id}>
+                        <Link href={"/agenda/" + contacto.id }>{contacto.nombre} {contacto.apellidos}</Link>   
+                        <button className='eliminar' onClick={() => eliminarContacto(contacto)}>🗑️</button>
+                    </li>
+                )}
+            </ul>
+        </main>
     </div>
 }

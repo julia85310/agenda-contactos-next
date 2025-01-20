@@ -80,20 +80,24 @@ export default function ContactPage({params}){
         {!modoEdicion? 
             <div>
             <h1>{contacto.nombre} {contacto.apellidos}</h1>
-            <p>ID: {id}</p>
-            {!!contacto.correo && <p>Correo: {contacto.correo}</p>}
-            <p>Teléfono: {contacto.telefono}</p>
-            {!!contacto.fecha_nacimiento && <p>Fecha de nacimiento: {contacto.fecha_nacimiento}</p>}
-            <button onClick={() => setModoEdicion(true)}>Editar</button>
+            <main className='datos'>
+                <p>ID: {id}</p>
+                {!!contacto.correo && <p>Correo: {contacto.correo}</p>}
+                <p>Teléfono: {contacto.telefono}</p>
+                {!!contacto.fecha_nacimiento && <p>Fecha de nacimiento: {contacto.fecha_nacimiento}</p>}
+                <button onClick={() => setModoEdicion(true)}>Editar</button>
+            </main>
             </div>:
-            <form onSubmit={(e) => updateDatos(e)}>
-                <label>Nombre: <input type="text" value={contacto.nombre} onChange={(e) => setContacto({...contacto, nombre: e.target.value})} required></input></label><br></br>
-                <label>Apellidos: <input type="text" value={contacto.apellidos} onChange={(e) => setContacto({...contacto, apellidos: e.target.value})} required></input></label><br></br>
-                <label>Correo: <input type="text" value={contacto.correo} pattern=".+@.+\..+" onChange={(e) => setContacto({...contacto, correo: e.target.value})}></input></label><br></br>
-                <label>Teléfono: <input type="number" required value={contacto.telefono} pattern="[0-9]{9}" onChange={(e) => setContacto({...contacto, telefono: e.target.value})}></input></label><br></br>
-                <label>Fecha de naciemiento: <input type="date" value={contacto.fecha_nacimiento} onChange={(e) => setContacto({...contacto, fecha_nacimiento: e.target.value})}></input></label><br></br>
-                <input type='submit' value='Confirmar'></input><button onClick={deshacer}>Deshacer</button>
-            </form>
+            <main>
+                <form onSubmit={(e) => updateDatos(e)}>
+                    <label>Nombre: <input type="text" value={contacto.nombre} onChange={(e) => setContacto({...contacto, nombre: e.target.value})} required></input></label><br></br>
+                    <label>Apellidos: <input type="text" value={contacto.apellidos} onChange={(e) => setContacto({...contacto, apellidos: e.target.value})} required></input></label><br></br>
+                    <label>Correo: <input type="text" value={contacto.correo} pattern=".+@.+\..+" onChange={(e) => setContacto({...contacto, correo: e.target.value})}></input></label><br></br>
+                    <label>Teléfono: <input type="number" required value={contacto.telefono} pattern="[0-9]{9}" onChange={(e) => setContacto({...contacto, telefono: e.target.value})}></input></label><br></br>
+                    <label>Fecha de naciemiento: <input type="date" value={contacto.fecha_nacimiento} onChange={(e) => setContacto({...contacto, fecha_nacimiento: e.target.value})}></input></label><br></br>
+                    <input className='submit' type='submit' value='Confirmar'></input><button onClick={deshacer}>Deshacer</button>
+                </form>
+            </main>
             }
     </div>
 }

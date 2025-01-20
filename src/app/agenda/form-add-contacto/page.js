@@ -57,14 +57,16 @@ export default function AddContactPage(){
     }
 
     return <div>
-        <h1>Añadir un nuevo contacto</h1>
-        <form onSubmit={(e) => addContact(e)}>
-            <label>Nombre: <input type="text" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required></input></label><br></br>
-            <label>Apellidos: <input type="text" value={formData.apellidos} onChange={(e) => setFormData({...formData, apellidos: e.target.value})} required></input></label><br></br>
-            <label>Correo: <input type="text" value={formData.correo} pattern=".+@.+\..+" onChange={(e) => setFormData({...formData, correo: e.target.value})}></input></label><br></br>
-            <label>Teléfono: <input type="number" value={formData.telefono} pattern="[0-9]{9}" onChange={(e) => setFormData({...formData, telefono: e.target.value})} required></input></label><br></br>
-            <label>Fecha de naciemiento: <input type="date" value={formData.fecha_nacimiento} onChange={(e) => setFormData({...formData, fecha_nacimiento: e.target.value})}></input></label><br></br>
-            <input type='submit' value='Añadir contacto'></input>
-        </form>
+        <h1>Añadir contacto</h1>
+        <main>
+            <form onSubmit={(e) => addContact(e)}>
+                <label>Nombre: <input type="text" value={formData.nombre} onChange={(e) => setFormData({...formData, nombre: e.target.value})} required></input></label><br></br>
+                <label>Apellidos: <input type="text" value={formData.apellidos} onChange={(e) => setFormData({...formData, apellidos: e.target.value})} required></input></label><br></br>
+                <label>Correo: <input type="text" value={formData.correo} pattern=".+@.+\..+" onChange={(e) => setFormData({...formData, correo: e.target.value})}></input></label><br></br>
+                <label>Teléfono: <input type="number" value={formData.telefono} pattern="[0-9]{9}" onChange={(e) => setFormData({...formData, telefono: e.target.value})} required></input></label><br></br>
+                <label>Fecha de naciemiento: <input type="date" value={formData.fecha_nacimiento} onChange={(e) => setFormData({...formData, fecha_nacimiento: e.target.value})}></input></label><br></br>
+                <input type='submit' className='submit' value='Añadir contacto'></input>
+            </form>
+        </main>
     </div>
 }

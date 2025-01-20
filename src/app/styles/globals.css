@@ -1,0 +1,82 @@
+body {
+    font-family: Verdana;
+    background-color: rgb(255, 246, 238);
+    max-width: 800px;
+}
+
+main {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+* {
+    margin: 1.1em;
+}
+
+h1 {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-size: 3.4em;
+    color: rgb(90, 46, 10);
+    text-align: center;
+}
+
+.datos {
+    display: block;
+}
+
+.eliminar {
+    border-radius: 40%;
+    padding:0.5em 0.5em;
+    border: none;
+    background-color: rgba(170, 11, 19);
+}
+
+.eliminar:hover {
+    background-color: rgba(170, 11, 19, 0.7);
+}
+
+form input {
+    border-radius: 6%;
+    padding: 0.3em 0.5em;
+    border: 0.1em solid #75350a;
+    background-color: #fffcfa;
+}
+
+.submit {
+    background-color: rgb(90, 46, 10);
+    border: none;
+    color: #fffcfa;
+    box-shadow: 0.05em 0.05em 0.4em 0.01em #917c6fa2;
+}
+
+.submit:hover {
+    background-color: rgb(143, 78, 25);
+}
+
+form label:hover {
+    background-color: rgba(216, 200, 186, 0.178);
+}
+
+form label {
+    padding: 1em;
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        max-width: 400px;
+        font-size: 0.8em;
+    }
+    h1 {
+        font-size: 2em;
+        text-align: center;
+    }
+    .eliminar {
+        border-radius: 40%;
+        padding:0.2em 0.2em;
+        border: none;
+        background-color: rgba(170, 11, 19);
+    }
+}
